@@ -11,6 +11,7 @@ class GCMClient(object):
 
     client = _GCM(GCM_API_KEY, proxy=GCM_PROXY)
 
+    @classmethod
     def send_message(cls, message):
         registration_ids = [registration.id for registration in message.user.registrations]
         cls._send(MESSAGE_TYPE.MESSAGE, registration_ids, message.to_dict(message.user))
@@ -34,6 +35,8 @@ class GCMClient(object):
 
     @classmethod
     def _send(cls, message_type, registration_ids, data):
+        if not registration_ids:
+            return
         gcm_payload = {
             'message_type': message_type,
             'payload': data,

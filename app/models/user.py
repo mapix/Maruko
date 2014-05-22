@@ -8,6 +8,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from app import store
 from .flower import Flower
 from .registration import Registration
+from .message import Message
 
 
 class User(store.Model):
@@ -22,6 +23,7 @@ class User(store.Model):
     create_time = store.Column(store.DateTime, default=datetime.now)
     update_time = store.Column(store.DateTime, default=datetime.now, onupdate=datetime.now)
 
+    messages = store.relationship(Message, lazy='dynamic', backref='user', cascade='all, delete-orphan')
     registrations = store.relationship(Registration, lazy='dynamic', backref='user', cascade='all, delete-orphan')
     owned_flowers = store.relationship(Flower, foreign_keys=[Flower.owner_id], lazy='dynamic', backref='owner', cascade='all, delete-orphan')
     guardianed_flowers = store.relationship(Flower, foreign_keys=[Flower.guardian_id], lazy='dynamic', backref='guardian', cascade='all, delete-orphan')

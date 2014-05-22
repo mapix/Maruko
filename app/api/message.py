@@ -10,9 +10,9 @@ from .utils import login_required
 
 class MessageResource(Resource):
 
-    @jsonize
     @login_required
-    def get(self, user_id):
+    @jsonize
+    def get(self):
         user = g.user
         messages = Message.query.filter(Message.user_id == user.id).all()
         return [message.to_dict(user) for message in messages]

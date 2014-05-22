@@ -18,6 +18,7 @@ class Flower(store.Model):
     update_time = store.Column(store.DateTime, default=datetime.now, onupdate=datetime.now)
 
     statisticses = store.relationship(Statistics, lazy='dynamic', backref='flower', cascade='all, delete-orphan', order_by=Statistics.id.desc())
+    messages = store.relationship(Message, lazy='dynamic', backref='flower', cascade='all, delete-orphan')
 
     def __repr__(self):
         return '%s(id=%s, user_id=%s)' % (self.__class__.__name__, self.id, self.user_id)

@@ -37,6 +37,7 @@ class Task(store.Model):
 
     __nonzero__ = __bool__
 
+    @classmethod
     def pick_one(cls, user):
         return cls.query.filter(and_(cls.user_id == user.id, not cls.done)).first()
 

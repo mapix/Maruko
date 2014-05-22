@@ -14,12 +14,13 @@ class StatisticsResource(Resource):
 
     @login_required
     @jsonize
-    def post(self, song_id):
+    def post(self):
         user = g.user
         wetness = request.form.get('wetness', type=float)
         temperature = request.form.get('temperature', type=float)
         lightness = request.form.get('lightness', type=float)
         flower_id = request.form.get('flower_id', type=int)
+        flower_id = 1
         flower = Flower.get(flower_id)
         flower.process_statistics(wetness, temperature, lightness)
         task = Task.pick_one(user)

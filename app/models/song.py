@@ -40,11 +40,11 @@ class Song(store.Model):
     __nonzero__ = __bool__
 
     @classmethod
-    def add(cls, owner, guardian):
-        flower = cls(owner=owner, guardian=guardian)
-        store.session.add(flower)
+    def add(cls, title, artist):
+        song = cls(title=title, artist=artist)
+        store.session.add(song)
         store.session.commit()
-        return flower
+        return song
 
     def play(self):
         pass

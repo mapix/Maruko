@@ -3,6 +3,7 @@
 from datetime import datetime
 
 from app import store
+from .gcm_client import GCMClient
 
 
 class Statistics(store.Model):
