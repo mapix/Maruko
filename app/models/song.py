@@ -3,6 +3,7 @@
 from datetime import datetime
 
 from app import store
+from .task import Task
 
 
 class Song(store.Model):
@@ -15,6 +16,8 @@ class Song(store.Model):
     play_count = store.Column(store.Integer, default=0)
     create_time = store.Column(store.DateTime, default=datetime.now)
     update_time = store.Column(store.DateTime, default=datetime.now, onupdate=datetime.now)
+
+    tasks = store.relationship(Task, lazy='dynamic', backref='song', cascade='all, delete-orphan')
 
     def __repr__(self):
         return '%s(id=%s, user_id=%s)' % (self.__class__.__name__, self.id, self.user_id)

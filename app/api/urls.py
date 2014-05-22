@@ -6,6 +6,7 @@ from .flower import FlowerResource
 from .song import SongResource
 from .user import UserResource
 from .message import MessageResource
+from .statistic import StatisticResource
 
 
 RESOURCE_URLS = [

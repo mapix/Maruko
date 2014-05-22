@@ -2,24 +2,25 @@
 
 from gcm import GCM as _GCM
 
+from app.config import GCM_PROXY
 from .consts import GCM_API_KEY, MESSAGE_TYPE
 from .registration import Registration
 
 
-class GCM(object):
+class GCMClient(object):
 
-    client = _GCM(GCM_API_KEY)
+    client = _GCM(GCM_API_KEY, proxy=GCM_PROXY)
 
     def send_message(cls, message):
         registration_ids = [registration.id for registration in message.user.registrations]
         cls._send(MESSAGE_TYPE.MESSAGE, registration_ids, message.to_dict(message.user))
 
     @classmethod
-    def send_statistic(cls, flower, temperature, moisture, illumination):
+    def send_statistic(cls, flower, wetness, temperature, lightness):
         data = {
+            'wetness': wetness,
             'temperature': temperature,
-            'moisture': moisture,
-            'illumination': illumination,
+            'lightness': lightness,
         }
         data['flower'] = flower.to_dict(flower.owner)
         registration_ids = [registration.id for registration in flower.owner.registrations]

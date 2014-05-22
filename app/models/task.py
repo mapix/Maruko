@@ -1,18 +1,19 @@
 # -*- coding: utf-8 -*-
 
 from datetime import datetime
+from sqlalchemy import and_
 
 from app import store
-from .gcm_client import GCMClient
 
 
-class Flower(store.Model):
+class Task(store.Model):
 
-    __tablename__ = 'flowers'
+    __tablename__ = 'tasks'
 
     id = store.Column(store.Integer, primary_key=True, autoincrement=True)
-    owner_id = store.Column(store.Integer, store.ForeignKey('users.id'))
-    guardian_id = store.Column(store.Integer, store.ForeignKey('users.id'))
+    done = store.Column(store.Boolean, index=True, default=False)
+    user_id = store.Column(store.Integer, store.ForeignKey('users.id'))
+    song_id = store.Column(store.Integer, store.ForeignKey('songs.id'))
     create_time = store.Column(store.DateTime, default=datetime.now)
     update_time = store.Column(store.DateTime, default=datetime.now, onupdate=datetime.now)
 
@@ -36,27 +37,23 @@ class Flower(store.Model):
 
     __nonzero__ = __bool__
 
-    @classmethod
-    def add(cls, owner, guardian):
-        flower = cls(owner=owner, guardian=guardian)
-        store.session.add(flower)
+    def pick_one(cls, user):
+        return cls.query.filter(and_(cls.user_id == user.id, not cls.done)).first()
+
+    def mark_done(self):
+        self.done = True
+        store.session.add(self)
         store.session.commit()
-        return flower
-
-    @classmethod
-    def get(cls, id):
-        return cls.query.filter(cls.id == id).first()
-
-    def process_statistic(self, wetness, temperature, lightness):
-        GCMClient.send_statistic(wetness, temperature, lightness)
 
     def to_dict(self, user=None):
         return {
             'id': str(self.id),
-            'owner_id': str(self.owner_id),
-            'guardian_id': str(self.guardian_id),
+            'done': self.done,
+            'user_id': str(self.user_id),
+            'song_id': str(self.song_id),
             'create_time': self.create_time,
             'update_time': self.update_time,
-            'owner': self.owner.to_dict(user),
-            'guardian': self.guardian.to_dict(user),
+
+            'user': self.user.to_dict(user),
+            'song': self.song.to_dict(user),
         }

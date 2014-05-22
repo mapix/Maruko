@@ -13,3 +13,5 @@ SECRET_KEY = os.environ.get('SECRET_KEY') or 'DEV SECRET KEY'
 SQLALCHEMY_ECHO = False
 SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(VAR_DIR, 'data.sqlite')
 
+GCM_PROXY = '10.8.0.1:8118'
+
