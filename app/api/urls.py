@@ -5,6 +5,7 @@ from flask_restful import Api
 from .flower import FlowerResource
 from .song import SongResource
 from .user import UserResource
+from .message import MessageResource
 
 
 RESOURCE_URLS = [
@@ -13,6 +14,7 @@ RESOURCE_URLS = [
     (FlowerResource, '/flowers/<int:flower_id>', 'flower'),
     (SongResource,   '/songs', 'songs'),
     (SongResource,   '/songs/<int:song_id>', 'song'),
+    (MessageResource, '/messages', 'messages'),
 ]
 
 

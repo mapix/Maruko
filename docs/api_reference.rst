@@ -79,6 +79,7 @@ GET     /api/songs                  获取播放列表
 POST    /api/songs/:id              播放单曲
 POST    /api/registrationds         设备注册
 DELETE  /api/registrationds         设备下线
+GET     /api/messages               消息记录
 ======  ==========================  ============
 
 
@@ -149,6 +150,7 @@ API Detail
 
      <Common Return: success>
 
+
 - 设备下线
 
   * 地址: DELETE /api/registrationds
@@ -156,6 +158,16 @@ API Detail
   * 返回::
 
      <Common Return: success>
+
+
+- 消息记录
+
+  * 地址: GET /api/messages
+  * 参数: 无
+  * 返回::
+
+     [<Message Object> ...]
+
 
 
 Api Common Return
