@@ -21,12 +21,8 @@ def recreate_store():
     print "Database recreate successfully !"
 
 @manager.command
-def serve_api():
+def serve():
     app.run()
-
-@manager.command
-def serve_censor():
-    pass
 
 if __name__ == '__main__':
     manager.run()

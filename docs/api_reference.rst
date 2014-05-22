@@ -64,6 +64,20 @@ Statistic::
     }
 
 
+Task::
+
+    {
+        "id": "11000"
+        "done": true,
+        "user_id": "10000",
+        "song_id": "1",
+        "create_time": "2014-05-04 08:44:15",
+        "update_time": "2014-05-04 08:44:15",
+        "user": <User Object>,
+        "song": <Song Object>,
+    }
+
+
 
 API Overview
 ------------
@@ -179,10 +193,7 @@ API Detail
     + lightness: 光照
   * 返回::
 
-     {
-         "task": "music",
-         "song_id": "1",
-     }
+     <Task Object>
      或
      <Common Return: success>
 
