@@ -24,7 +24,7 @@ class User(store.Model):
 
     registrations = store.relationship(Registration, lazy='dynamic', backref='user', cascade='all, delete-orphan')
     owned_flowers = store.relationship(Flower, foreign_keys=[Flower.owner_id], lazy='dynamic', backref='owner', cascade='all, delete-orphan')
-    guardianed_flowers = store.relationship(Flower, foreign_keys=[Flower.guardian_id], slazy='dynamic', backref='guardian', cascade='all, delete-orphan')
+    guardianed_flowers = store.relationship(Flower, foreign_keys=[Flower.guardian_id], lazy='dynamic', backref='guardian', cascade='all, delete-orphan')
 
     def __repr__(self):
         return '%s(id=%s, name=%s)' % (self.__class__.__name__, self.id, self.name)

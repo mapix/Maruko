@@ -4,6 +4,9 @@ import sys
 from flask import Flask
 from flask.ext.sqlalchemy import SQLAlchemy, event
 from flask.ext.bootstrap import Bootstrap
+from flask.ext.admin import Admin
+from flask.ext.admin.contrib.sqla import ModelView
+
 
 store = SQLAlchemy(session_options={'expire_on_commit': False})
 
@@ -14,7 +17,7 @@ def create_app():
     from . import config
     app.config.from_object(config)
 
-    from .libs.json import CustomJSONEncoder
+    from .libs.serialization import CustomJSONEncoder
     app.json_encoder = CustomJSONEncoder
 
     bootstrap = Bootstrap()
@@ -23,6 +26,20 @@ def create_app():
     store.init_app(app)
     store.app = app
     store.session.expire_on_commit = False
+
+    admin = Admin(app)
+
+    from app.models.user import User                   # NOQA
+    from app.models.flower import Flower               # NOQA
+    from app.models.song import Song                   # NOQA
+    from app.models.message import Message             # NOQA
+    from app.models.registration import Registration   # NOQA
+
+    admin.add_view(ModelView(User, store.session))
+    admin.add_view(ModelView(Flower, store.session))
+    admin.add_view(ModelView(Song, store.session))
+    admin.add_view(ModelView(Message, store.session))
+    admin.add_view(ModelView(Registration, store.session))
 
     @event.listens_for(store.engine, "connect")
     def change_text_factory(connection, connection_record):

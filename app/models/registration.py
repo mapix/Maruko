@@ -9,7 +9,7 @@ class Registration(store.Model):
 
     __tablename__ = 'registrations'
 
-    id = store.Column(store.String(40))
+    id = store.Column(store.String(162), primary_key=True)
     active = store.Column(store.Boolean, index=True, default=True)
     user_id = store.Column(store.Integer, store.ForeignKey('users.id'))
     version = store.Column(store.String(10))

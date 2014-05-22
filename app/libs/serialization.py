@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 
-from json import loads, dumps  # NOQA
 from functools import wraps
 from datetime import datetime
 from flask import jsonify

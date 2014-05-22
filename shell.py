@@ -3,12 +3,15 @@
 
 
 def load_user_ns():
-    from app import app, store                     # NOQA
+    from app import app, store                         # NOQA
 
     app.app_context().push()
 
-    from app.models.user import User               # NOQA
-    from app.models.question import Question       # NOQA
+    from app.models.user import User                   # NOQA
+    from app.models.flower import Flower               # NOQA
+    from app.models.song import Song                   # NOQA
+    from app.models.message import Message             # NOQA
+    from app.models.registration import Registration   # NOQA
 
     return locals()
 
