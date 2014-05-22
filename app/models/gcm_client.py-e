@@ -16,7 +16,7 @@ class GCMClient(object):
         cls._send(MESSAGE_TYPE.MESSAGE, registration_ids, message.to_dict(message.user))
 
     @classmethod
-    def send_statistics(cls, flower, wetness, temperature, lightness):
+    def send_statistic(cls, flower, wetness, temperature, lightness):
         data = {
             'wetness': wetness,
             'temperature': temperature,

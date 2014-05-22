@@ -14,15 +14,19 @@ def recreate_store():
     from app.models.user import User                   # NOQA
     from app.models.flower import Flower               # NOQA
     from app.models.song import Song                   # NOQA
+    from app.models.task import Task                   # NOQA
+    from app.models.statistics import Statistics         # NOQA
     from app.models.message import Message             # NOQA
     from app.models.registration import Registration   # NOQA
     store.drop_all()
     store.create_all()
     print "Database recreate successfully !"
 
+
 @manager.command
 def serve():
     app.run()
+
 
 if __name__ == '__main__':
     manager.run()

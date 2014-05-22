@@ -10,7 +10,7 @@ from .errors import API_SUCCESS
 from .utils import login_required
 
 
-class StatisticResource(Resource):
+class StatisticsResource(Resource):
 
     @login_required
     @jsonize
@@ -21,7 +21,7 @@ class StatisticResource(Resource):
         lightness = request.form.get('lightness', type=float)
         flower_id = request.form.get('flower_id', type=int)
         flower = Flower.get(flower_id)
-        flower.process_statistic(wetness, temperature, lightness)
+        flower.process_statistics(wetness, temperature, lightness)
         task = Task.pick_one(user)
         if task:
             task.mark_done()

@@ -5,9 +5,9 @@ from datetime import datetime
 from app import store
 
 
-class Statistic(store.Model):
+class Statistics(store.Model):
 
-    __tablename__ = 'statistic'
+    __tablename__ = 'statistics'
 
     id = store.Column(store.Integer, primary_key=True, autoincrement=True)
     flower_id = store.Column(store.Integer, store.ForeignKey('flowers.id'))
@@ -38,11 +38,11 @@ class Statistic(store.Model):
 
     @classmethod
     def add(cls, flower, wetness, temperature, lightness):
-        statistic = cls(flower=flower, wetness=wetness, temperature=temperature, lightness=lightness)
-        store.session.add(statistic)
+        statistics = cls(flower=flower, wetness=wetness, temperature=temperature, lightness=lightness)
+        store.session.add(statistics)
         store.session.commit()
-        GCMClient.send_statistic(flower, wetness, temperature, lightness)
-        return statistic
+        GCMClient.send_statistics(flower, wetness, temperature, lightness)
+        return statistics
 
     @classmethod
     def get(cls, id):

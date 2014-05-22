@@ -6,7 +6,7 @@ from .flower import FlowerResource
 from .song import SongResource
 from .user import UserResource
 from .message import MessageResource
-from .statistics import StatisticsResource
+from .statistic import StatisticsResource
 
 
 RESOURCE_URLS = [
@@ -16,7 +16,7 @@ RESOURCE_URLS = [
     (SongResource,   '/songs', 'songs'),
     (SongResource,   '/songs/<int:song_id>', 'song'),
     (MessageResource, '/messages', 'messages'),
-    (StatisticsResource, '/statistics ', 'statistics'),
+    (StatisticsResource, '/statistic ', 'statistic'),
 ]
 
 

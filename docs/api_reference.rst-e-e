@@ -94,7 +94,7 @@ POST    /api/songs/:id              播放单曲
 POST    /api/registrationds         设备注册
 DELETE  /api/registrationds         设备下线
 GET     /api/messages               消息记录
-POST    /api/statistics              信息收集
+POST    /api/statistic              信息收集
 ======  ==========================  ============
 
 
@@ -186,7 +186,7 @@ API Detail
 
 - 信息收集
 
-  * 地址: POST /api/statistics
+  * 地址: POST /api/statistic
   * 参数:
     + wetness: 湿度
     + temperature: 温度
@@ -231,7 +231,7 @@ Async Push Message
 Data          Description    Payload 含义
 ============  ===========    ===================
 message       新消息         message 结构体
-statistics     数据更新       statistics 结构体
+statistic     数据更新       statistic 结构体
 ============  ===========    ===================
 
 消息详细::
