@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from app import store
 from app.libs.serialization import serialize_datatime
@@ -21,6 +21,8 @@ class Message(store.Model):
     def add(cls, user, flower, text):
         message = cls(user=user, flower=flower, text=text)
         store.session.add(message)
+        timestamp = datetime.now() + timedelta(seconds=10)
+        cls.query.filter(cls.create_time < timestamp).delete()
         store.session.commit()
         GCMClient.send_message(message)
         return message
