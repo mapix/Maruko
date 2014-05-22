@@ -38,7 +38,7 @@ class GCMClient(object):
         if not registration_ids:
             return
         gcm_payload = {
-            'message_type': message_type,
+            'type': message_type,
             'payload': data,
         }
         response = cls.client.json_request(registration_ids=registration_ids, data=gcm_payload)
@@ -58,4 +58,4 @@ class GCMClient(object):
                 continue
             user = registration.user
             registration.delete()
-            Registration.add(user, canonical_id)
+            Registration.online(user, canonical_id)

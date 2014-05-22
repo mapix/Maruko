@@ -3,6 +3,7 @@
 from datetime import datetime
 
 from app import store
+from app.libs.serialization import serialize_datatime
 from .gcm_client import GCMClient
 
 
@@ -53,9 +54,9 @@ class Statistics(store.Model):
         return {
             'id': str(self.id),
             'flower_id': str(self.flower_id),
-            'create_time': self.create_time,
             'wetness': self.wetness,
             'temperature': self.temperature,
             'lightness': self.lightness,
             'flower': self.flower.to_dict(user),
+            'create_time': serialize_datatime(self.create_time),
         }

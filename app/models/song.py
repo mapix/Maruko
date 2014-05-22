@@ -3,6 +3,7 @@
 from datetime import datetime
 
 from app import store
+from app.libs.serialization import serialize_datatime
 from .task import Task
 
 
@@ -59,6 +60,6 @@ class Song(store.Model):
             'title': self.title,
             'artist': self.artist,
             'play_count': self.play_count,
-            'create_time': self.create_time,
-            'update_time': self.update_time,
+            'create_time': serialize_datatime(self.create_time),
+            'update_time': serialize_datatime(self.update_time),
         }

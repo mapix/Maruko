@@ -3,6 +3,7 @@
 from datetime import datetime
 
 from app import store
+from app.libs.serialization import serialize_datatime
 from .statistics import Statistics
 from .message import Message
 
@@ -21,7 +22,7 @@ class Flower(store.Model):
     messages = store.relationship(Message, lazy='dynamic', backref='flower', cascade='all, delete-orphan')
 
     def __repr__(self):
-        return '%s(id=%s, user_id=%s)' % (self.__class__.__name__, self.id, self.user_id)
+        return '%s(id=%s, owner_id=%s)' % (self.__class__.__name__, self.id, self.owner_id)
 
     def __eq__(self, other):
         return isinstance(other, self.__class__) and self.id == other.id
@@ -63,8 +64,8 @@ class Flower(store.Model):
             'id': str(self.id),
             'owner_id': str(self.owner_id),
             'guardian_id': str(self.guardian_id),
-            'create_time': self.create_time,
-            'update_time': self.update_time,
+            'create_time': serialize_datatime(self.create_time),
+            'update_time': serialize_datatime(self.update_time),
             'owner': self.owner.to_dict(user),
             'guardian': self.guardian.to_dict(user),
         }

@@ -3,6 +3,7 @@
 from datetime import datetime
 
 from app import store
+from app.libs.serialization import serialize_datatime
 
 
 class Registration(store.Model):
@@ -12,7 +13,6 @@ class Registration(store.Model):
     id = store.Column(store.String(162), primary_key=True)
     active = store.Column(store.Boolean, index=True, default=True)
     user_id = store.Column(store.Integer, store.ForeignKey('users.id'))
-    version = store.Column(store.String(10))
     create_time = store.Column(store.DateTime, default=datetime.now)
     update_time = store.Column(store.DateTime, default=datetime.now, onupdate=datetime.now)
 
@@ -71,7 +71,7 @@ class Registration(store.Model):
             'id': str(self.id),
             'user_id': str(self.user_id),
             'active': self.active,
-            'create_time': self.create_time,
-            'update_time': self.update_time,
+            'create_time': serialize_datatime(self.create_time),
+            'update_time': serialize_datatime(self.update_time),
             'user': self.user.to_dict(user),
         }

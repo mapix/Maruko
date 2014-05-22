@@ -6,6 +6,7 @@ from flask import request
 from werkzeug.security import generate_password_hash, check_password_hash
 
 from app import store
+from app.libs.serialization import serialize_datatime
 from .flower import Flower
 from .registration import Registration
 from .message import Message
@@ -73,6 +74,6 @@ class User(store.Model):
             'name': self.name,
             'email': self.email,
             'avatar': self.avatar(),
-            'create_time': self.create_time,
-            'update_time': self.update_time,
+            'create_time': serialize_datatime(self.create_time),
+            'update_time': serialize_datatime(self.update_time),
         }

@@ -4,6 +4,7 @@ from datetime import datetime
 from sqlalchemy import and_
 
 from app import store
+from app.libs.serialization import serialize_datatime
 
 
 class Task(store.Model):
@@ -52,8 +53,8 @@ class Task(store.Model):
             'done': self.done,
             'user_id': str(self.user_id),
             'song_id': str(self.song_id),
-            'create_time': self.create_time,
-            'update_time': self.update_time,
+            'create_time': serialize_datatime(self.create_time),
+            'update_time': serialize_datatime(self.update_time),
 
             'user': self.user.to_dict(user),
             'song': self.song.to_dict(user),

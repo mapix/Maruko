@@ -7,6 +7,7 @@ from .song import SongResource
 from .user import UserResource
 from .message import MessageResource
 from .statistics import StatisticsResource
+from .registration import RegistrationResource
 
 
 RESOURCE_URLS = [
@@ -17,6 +18,7 @@ RESOURCE_URLS = [
     (SongResource,   '/songs/<int:song_id>', 'song'),
     (MessageResource, '/messages', 'messages'),
     (StatisticsResource, '/statistics', 'statistics'),
+    (RegistrationResource, '/registrations', 'registrations'),
 ]
 
 

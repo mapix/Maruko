@@ -91,8 +91,8 @@ DELETE  /api/flowers/:id            删除花
 POST    /api/flowers                增加花
 GET     /api/songs                  获取播放列表
 POST    /api/songs/:id              播放单曲
-POST    /api/registrationds         设备注册
-DELETE  /api/registrationds         设备下线
+POST    /api/registrations         设备注册
+DELETE  /api/registrations         设备下线
 GET     /api/messages               消息记录
 POST    /api/statistics              信息收集
 ======  ==========================  ============
@@ -158,9 +158,9 @@ API Detail
 
 - 设备上线
 
-  * 地址: POST /api/registrationds
+  * 地址: POST /api/registrations
   * 参数:
-    + registation_id 来自GCM的注册ID
+    + registration_id 来自GCM的注册ID
   * 返回::
 
      <Common Return: success>
@@ -168,7 +168,7 @@ API Detail
 
 - 设备下线
 
-  * 地址: DELETE /api/registrationds
+  * 地址: DELETE /api/registrations
   * 参数: 无
   * 返回::
 

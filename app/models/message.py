@@ -3,6 +3,7 @@
 from datetime import datetime
 
 from app import store
+from app.libs.serialization import serialize_datatime
 from .gcm_client import GCMClient
 
 
@@ -34,7 +35,7 @@ class Message(store.Model):
             'user_id': self.user_id,
             'flower_id': self.flower_id,
             'text': self.text,
-            'create_time': self.create_time,
+            'create_time': serialize_datatime(self.create_time),
 
             'flower': self.flower.to_dict(user),
             'user': self.user.to_dict(user),

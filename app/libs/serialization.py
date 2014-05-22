@@ -11,7 +11,7 @@ class CustomJSONEncoder(JSONEncoder):
     def default(self, obj):
         try:
             if isinstance(obj, datetime):
-                return obj.strftime('%Y-%m-%d %H:%M:%S')
+                return serialize_datatime(obj)
         except TypeError:
             pass
         return JSONEncoder.default(self, obj)
@@ -23,3 +23,7 @@ def jsonize(func):
         result = func(*args, **kwargs)
         return jsonify(result)
     return _
+
+
+def serialize_datatime(obj):
+    return obj.strftime('%Y-%m-%d %H:%M:%S')
