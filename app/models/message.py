@@ -3,6 +3,7 @@
 from datetime import datetime
 
 from app import store
+from .gcm_client import GCMClient
 
 
 class Message(store.Model):
@@ -20,6 +21,8 @@ class Message(store.Model):
         message = cls(user=user, flower=flower, text=text)
         store.session.add(message)
         store.session.commit()
+        GCMClient.send_message(message)
+        return message
 
     @classmethod
     def get(cls, id):

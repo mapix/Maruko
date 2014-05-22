@@ -16,9 +16,9 @@ class StatisticResource(Resource):
     @jsonize
     def post(self, song_id):
         user = g.user
-        wetness = request.form.get('wetness', type=int)
-        temperature = request.form.get('temperature', type=int)
-        lightness = request.form.get('lightness', type=int)
+        wetness = request.form.get('wetness', type=float)
+        temperature = request.form.get('temperature', type=float)
+        lightness = request.form.get('lightness', type=float)
         flower_id = request.form.get('flower_id', type=int)
         flower = Flower.get(flower_id)
         flower.process_statistic(wetness, temperature, lightness)

@@ -3,7 +3,8 @@
 from datetime import datetime
 
 from app import store
-from .gcm_client import GCMClient
+from .statistic import Statistic
+from .message import Message
 
 
 class Flower(store.Model):
@@ -15,6 +16,8 @@ class Flower(store.Model):
     guardian_id = store.Column(store.Integer, store.ForeignKey('users.id'))
     create_time = store.Column(store.DateTime, default=datetime.now)
     update_time = store.Column(store.DateTime, default=datetime.now, onupdate=datetime.now)
+
+    statistices = store.relationship(Statistic, lazy='dynamic', backref='flower', cascade='all, delete-orphan', order_by=Statistic.id.desc())
 
     def __repr__(self):
         return '%s(id=%s, user_id=%s)' % (self.__class__.__name__, self.id, self.user_id)
@@ -48,7 +51,11 @@ class Flower(store.Model):
         return cls.query.filter(cls.id == id).first()
 
     def process_statistic(self, wetness, temperature, lightness):
-        GCMClient.send_statistic(wetness, temperature, lightness)
+        old_statistic = self.statistices.first()
+        new_statistic = Statistic.add(self, wetness, temperature, lightness)
+        #TODO logic
+        Message.add(self.owner, self, '喝水了')
+        Message.add(self.guardian, self, '吃饭了')
 
     def to_dict(self, user=None):
         return {
