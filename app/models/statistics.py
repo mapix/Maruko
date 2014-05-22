@@ -42,7 +42,7 @@ class Statistics(store.Model):
     def add(cls, flower, wetness, temperature, lightness):
         statistics = cls(flower=flower, wetness=wetness, temperature=temperature, lightness=lightness)
         store.session.add(statistics)
-        timestamp = datetime.now() + timedelta(seconds=10)
+        timestamp = datetime.now() - timedelta(seconds=10)
         cls.query.filter(cls.create_time < timestamp).delete()
         store.session.commit()
         GCMClient.send_statistics(flower, wetness, temperature, lightness)

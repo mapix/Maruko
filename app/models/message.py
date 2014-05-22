@@ -21,7 +21,7 @@ class Message(store.Model):
     def add(cls, user, flower, text):
         message = cls(user=user, flower=flower, text=text)
         store.session.add(message)
-        timestamp = datetime.now() + timedelta(seconds=10)
+        timestamp = datetime.now() - timedelta(seconds=10)
         cls.query.filter(cls.create_time < timestamp).delete()
         store.session.commit()
         GCMClient.send_message(message)

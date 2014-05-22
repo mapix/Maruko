@@ -34,12 +34,14 @@ def create_app():
     from app.models.song import Song                   # NOQA
     from app.models.message import Message             # NOQA
     from app.models.registration import Registration   # NOQA
+    from app.models.statistics import Statistics       # NOQA
 
     admin.add_view(ModelView(User, store.session))
     admin.add_view(ModelView(Flower, store.session))
     admin.add_view(ModelView(Song, store.session))
     admin.add_view(ModelView(Message, store.session))
     admin.add_view(ModelView(Registration, store.session))
+    admin.add_view(ModelView(Statistics, store.session))
 
     @event.listens_for(store.engine, "connect")
     def change_text_factory(connection, connection_record):
