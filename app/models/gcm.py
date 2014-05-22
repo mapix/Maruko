@@ -17,11 +17,9 @@ class GCM(object):
     @classmethod
     def send_statistic(cls, flower, temperature, moisture, illumination):
         data = {
-            'statistic': {
-                'temperature': temperature,
-                'moisture': moisture,
-                'illumination': illumination,
-            }
+            'temperature': temperature,
+            'moisture': moisture,
+            'illumination': illumination,
         }
         data['flower'] = flower.to_dict(flower.owner)
         registration_ids = [registration.id for registration in flower.owner.registrations]

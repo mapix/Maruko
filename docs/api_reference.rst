@@ -58,11 +58,9 @@ Statistic::
 
     {
         "flower": <Flower Object>,
-        "statistic": {
-            "wetness": 111,
-            "temperature": 111,
-            "lightness": 111,
-        }
+        "wetness": 111,
+        "temperature": 111,
+        "lightness": 111,
     }
 
 

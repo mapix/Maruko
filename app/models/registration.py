@@ -57,6 +57,11 @@ class Registration(store.Model):
             store.session.commit()
         return registration
 
+    @classmethod
+    def offline(cls, user):
+        Registration.query.filter(cls.user_id == user.id).delete()
+        store.session.commit()
+
     def delete(self):
         store.session.delete(self)
         store.session.commit()
