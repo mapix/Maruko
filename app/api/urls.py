@@ -4,9 +4,11 @@ from flask_restful import Api
 
 from .flower import FlowerResource
 from .song import SongResource
+from .user import UserResource
 
 
 RESOURCE_URLS = [
+    (UserResource,   '/users/<int:user_id>', 'user'),
     (FlowerResource, '/flowers', 'flowers'),
     (FlowerResource, '/flowers/<int:flower_id>', 'flower'),
     (SongResource,   '/songs', 'songs'),
