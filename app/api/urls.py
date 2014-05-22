@@ -15,6 +15,7 @@ RESOURCE_URLS = [
     (SongResource,   '/songs', 'songs'),
     (SongResource,   '/songs/<int:song_id>', 'song'),
     (MessageResource, '/messages', 'messages'),
+    (StatisticResource, '/statistic ', 'statistic'),
 ]
 
 

@@ -80,6 +80,7 @@ POST    /api/songs/:id              播放单曲
 POST    /api/registrationds         设备注册
 DELETE  /api/registrationds         设备下线
 GET     /api/messages               消息记录
+POST    /api/statistic              信息收集
 ======  ==========================  ============
 
 
@@ -167,6 +168,23 @@ API Detail
   * 返回::
 
      [<Message Object> ...]
+
+
+- 信息收集
+
+  * 地址: POST /api/statistic
+  * 参数:
+    + wetness: 湿度
+    + temperature: 温度
+    + lightness: 光照
+  * 返回::
+
+     {
+         "task": "music",
+         "song_id": "1",
+     }
+     或
+     <Common Return: success>
 
 
 
