@@ -10,3 +10,5 @@ MESSAGE_TYPE = namedtuple('MESSAGE_TYPE', ['STATISTIC', 'MESSAGE']
                           )('statistics', 'message')
 TASK_ACTION = namedtuple('TASK_ACTION', ['PLAY', 'STOP']
                           )('play', 'stop')
+MESSAGE_KIND = namedtuple('MESSAGE_KIND', ['WATERING', 'MESSAGE']
+                          )('watering', 'message')

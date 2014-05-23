@@ -35,6 +35,7 @@ Message::
         "id": "10000",
         "user_id": "52180037",
         "flower_id": "10000",
+        "type": "watering" / "message",
         "text": "water me!",
         "create_time": "2014-05-04 08:44:15",
         "flower": <Flower Object>,
