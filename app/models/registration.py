@@ -11,7 +11,7 @@ class Registration(store.Model):
     __tablename__ = 'registrations'
 
     id = store.Column(store.String(162), primary_key=True)
-    active = store.Column(store.Boolean, index=True, default=True)
+    active = store.Column(store.Boolean, default=True)
     user_id = store.Column(store.Integer, store.ForeignKey('users.id'))
     create_time = store.Column(store.DateTime, default=datetime.now)
     update_time = store.Column(store.DateTime, default=datetime.now, onupdate=datetime.now)

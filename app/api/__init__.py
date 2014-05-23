@@ -11,5 +11,11 @@ init_urls(api)
 
 @api.before_request
 def authenticate_user():
-    #request.headers['A']
     g.user = User.get(1)
+    return
+
+    authorization = request.headers.get('Authorization', '').split(':')
+    if len(authorization) != 2:
+        return
+    _, user_id = authorization
+    g.user = User.get(user_id)
