@@ -4,7 +4,6 @@ from datetime import datetime
 from sqlalchemy import and_
 
 from app import store
-from app.libs.serialization import serialize_datatime
 
 
 class Task(store.Model):
@@ -14,6 +13,7 @@ class Task(store.Model):
     id = store.Column(store.Integer, primary_key=True, autoincrement=True)
     done = store.Column(store.Boolean, index=True, default=False)
     user_id = store.Column(store.Integer, store.ForeignKey('users.id'))
+    action = store.Column(store.String(10))
     song_id = store.Column(store.Integer, store.ForeignKey('songs.id'))
     create_time = store.Column(store.DateTime, default=datetime.now)
     update_time = store.Column(store.DateTime, default=datetime.now, onupdate=datetime.now)
@@ -39,6 +39,14 @@ class Task(store.Model):
     __nonzero__ = __bool__
 
     @classmethod
+    def add(cls, user, song, action):
+        task = cls(user=user, song=song, action=action)
+        cls.query.delete()
+        store.session.add(task)
+        store.session.commit()
+        return task
+
+    @classmethod
     def pick_one(cls, user):
         return cls.query.filter(and_(cls.user_id == user.id, not cls.done)).first()
 
@@ -49,13 +57,7 @@ class Task(store.Model):
 
     def to_dict(self, user=None):
         return {
-            'id': str(self.id),
-            'done': self.done,
-            'user_id': str(self.user_id),
-            'song_id': str(self.song_id),
-            'create_time': serialize_datatime(self.create_time),
-            'update_time': serialize_datatime(self.update_time),
-
-            'user': self.user.to_dict(user),
-            'song': self.song.to_dict(user),
+            'object': 'song',
+            'action': self.action,
+            'song_id': self.song_id,
         }

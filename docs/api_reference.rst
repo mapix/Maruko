@@ -67,14 +67,9 @@ Statistics::
 Task::
 
     {
-        "id": "11000"
-        "done": true,
-        "user_id": "10000",
+        "object": "song",
+        "action": "play" / "stop",
         "song_id": "1",
-        "create_time": "2014-05-04 08:44:15",
-        "update_time": "2014-05-04 08:44:15",
-        "user": <User Object>,
-        "song": <Song Object>,
     }
 
 
@@ -91,10 +86,11 @@ DELETE  /api/flowers/:id            删除花
 POST    /api/flowers                增加花
 GET     /api/songs                  获取播放列表
 POST    /api/songs/:id              播放单曲
-POST    /api/registrations         设备注册
-DELETE  /api/registrations         设备下线
+DELETE  /api/songs/:id              暂停单曲
+POST    /api/registrations          设备注册
+DELETE  /api/registrations          设备下线
 GET     /api/messages               消息记录
-POST    /api/statistics              信息收集
+POST    /api/statistics             信息收集
 ======  ==========================  ============
 
 

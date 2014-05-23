@@ -4,6 +4,7 @@ from datetime import datetime
 
 from app import store
 from app.libs.serialization import serialize_datatime
+from .consts import TASK_ACTION
 from .task import Task
 
 
@@ -21,7 +22,7 @@ class Song(store.Model):
     tasks = store.relationship(Task, lazy='dynamic', backref='song', cascade='all, delete-orphan')
 
     def __repr__(self):
-        return '%s(id=%s, user_id=%s)' % (self.__class__.__name__, self.id, self.user_id)
+        return '%s(id=%s, title=%s)' % (self.__class__.__name__, self.id, self.title)
 
     def __eq__(self, other):
         return isinstance(other, self.__class__) and self.id == other.id
@@ -47,8 +48,11 @@ class Song(store.Model):
         store.session.commit()
         return song
 
-    def play(self):
-        pass
+    def play(self, user):
+        Task.add(user, self, TASK_ACTION.PLAY)
+
+    def stop(self, user):
+        Task.add(user, self, TASK_ACTION.STOP)
 
     @classmethod
     def get(cls, id):

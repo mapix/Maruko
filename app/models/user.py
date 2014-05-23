@@ -10,6 +10,7 @@ from app.libs.serialization import serialize_datatime
 from .flower import Flower
 from .registration import Registration
 from .message import Message
+from .task import Task
 
 
 class User(store.Model):
@@ -24,6 +25,7 @@ class User(store.Model):
     create_time = store.Column(store.DateTime, default=datetime.now)
     update_time = store.Column(store.DateTime, default=datetime.now, onupdate=datetime.now)
 
+    tasks = store.relationship(Task, lazy='dynamic', backref='user', cascade='all, delete-orphan')
     messages = store.relationship(Message, lazy='dynamic', backref='user', cascade='all, delete-orphan')
     registrations = store.relationship(Registration, lazy='dynamic', backref='user', cascade='all, delete-orphan')
     owned_flowers = store.relationship(Flower, foreign_keys=[Flower.owner_id], lazy='dynamic', backref='owner', cascade='all, delete-orphan')

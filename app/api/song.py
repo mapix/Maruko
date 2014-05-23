@@ -21,8 +21,19 @@ class SongResource(Resource):
     @login_required
     @jsonize
     def post(self, song_id):
+        user = g.user
         song = Song.get(song_id)
         if not song:
             ApiError.abort(ApiError.song_not_exists)
-        song.play()
+        song.play(user)
+        return API_SUCCESS
+
+    @login_required
+    @jsonize
+    def delete(self, song_id):
+        user = g.user
+        song = Song.get(song_id)
+        if not song:
+            ApiError.abort(ApiError.song_not_exists)
+        song.stop(user)
         return API_SUCCESS
