@@ -54,36 +54,28 @@ class Flower(store.Model):
         return cls.query.filter(cls.id == id).first()
 
     def process_statistics(self, wetness, temperature, lightness):
-        old_statisticses = self.statisticses.limit(10)
+        old_statisticses = self.statisticses.limit(3)
         new_statistics = Statistics.add(self, wetness, temperature, lightness)
-
-        if not old_statisticses:
-            return
-
-        if new_statistics.wetness > old_statisticses[-1].wetness + 20:
-            Message.add(self.guardian, self, '正在浇水', MESSAGE_KIND.WATERING)
-            Message.add(self.owner, self, '正在浇水', MESSAGE_KIND.WATERING)
-            return
-
-        messages = []
-        if new_statistics.wetness < 200:
-            messages.append("该浇水了")
-        elif new_statistics.wetness > 700:
-            messages.append("太潮湿")
-
-        if new_statistics.lightness < 50:
-            messages.append("太暗了")
-        elif new_statistics.lightness > 500:
-            messages.append("太亮了")
-
-        if new_statistics.temperature < 10:
-            messages.append("太冷了")
+        if not old_statisticses: return
+        text = ""
+        if new_statistics.wetness > old_statisticses[-1].wetness + 10:
+            Message.add(self.guardian, self, '大石老师刚刚给你浇水了', MESSAGE_KIND.WATERING)
+            Message.add(self.owner, self, '大石老师刚刚给你浇水了', MESSAGE_KIND.WATERING)
+        elif new_statistics.wetness < 200:
+            text = "好干燥，快来给我浇水！"
+        # elif new_statistics.wetness > 700:
+        #     text = "太湿"
+        elif new_statistics.temperature < 10:
+            text = "天气好冷！"
         elif new_statistics.temperature > 30:
-            messages.append("太热了")
-
-        if messages:
-            Message.add(self.guardian, self, ', '.join(messages), MESSAGE_KIND.MESSAGE)
-            Message.add(self.owner, self, ', '.join(messages), MESSAGE_KIND.MESSAGE)
+            text = "天气好热！快点变凉快吧"
+        elif new_statistics.lightness < 50:
+            text = "见不到太阳啊主人~"
+        elif new_statistics.lightness > 500:
+            text = "今天已经晒够啦，快挪我到阴凉处"
+        if text:
+            Message.add(self.guardian, self, text, MESSAGE_KIND.MESSAGE)
+            Message.add(self.owner, self, text, MESSAGE_KIND.MESSAGE)
 
     def to_dict(self, user=None):
         return {
