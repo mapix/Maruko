@@ -61,7 +61,9 @@ class Flower(store.Model):
             return
 
         if new_statistics.wetness > old_statisticses[-1].wetness + 20:
-            return Message.add(self.owner, self, '%s给你浇水了' % self.guardian.name, MESSAGE_KIND.WATERING)
+            Message.add(self.guardian, self, '正在浇水', MESSAGE_KIND.WATERING)
+            Message.add(self.owner, self, '正在浇水', MESSAGE_KIND.WATERING)
+            return
 
         messages = []
         if new_statistics.wetness < 200:
@@ -81,6 +83,7 @@ class Flower(store.Model):
 
         if messages:
             Message.add(self.guardian, self, ', '.join(messages), MESSAGE_KIND.MESSAGE)
+            Message.add(self.owner, self, ', '.join(messages), MESSAGE_KIND.MESSAGE)
 
     def to_dict(self, user=None):
         return {
