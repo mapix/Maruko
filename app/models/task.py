@@ -48,7 +48,7 @@ class Task(store.Model):
 
     @classmethod
     def pick_one(cls, user):
-        return cls.query.filter(and_(cls.user_id == user.id, not cls.done)).first()
+        return cls.query.filter(and_(cls.user_id == user.id, cls.done == False)).first()
 
     def mark_done(self):
         self.done = True
