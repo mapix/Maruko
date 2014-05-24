@@ -21,7 +21,6 @@ class SongResource(Resource):
     @login_required
     @jsonize
     def post(self, song_id):
-        song_id = 1
         user = g.user
         song = Song.get(song_id)
         if not song:
@@ -32,7 +31,6 @@ class SongResource(Resource):
     @login_required
     @jsonize
     def delete(self, song_id):
-        song_id = 1
         user = g.user
         song = Song.get(song_id)
         if not song:

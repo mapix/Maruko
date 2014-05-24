@@ -11,7 +11,7 @@ def load_user_ns():
     from app.models.flower import Flower               # NOQA
     from app.models.song import Song                   # NOQA
     from app.models.task import Task                   # NOQA
-    from app.models.statistics import Statistics         # NOQA
+    from app.models.statistics import Statistics       # NOQA
     from app.models.message import Message             # NOQA
     from app.models.registration import Registration   # NOQA
 

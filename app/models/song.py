@@ -4,7 +4,7 @@ from datetime import datetime
 
 from app import store
 from app.libs.serialization import serialize_datatime
-from .consts import TASK_ACTION
+from .consts import TASK_ACTION, TASK_TYPE
 from .task import Task
 
 
@@ -49,10 +49,10 @@ class Song(store.Model):
         return song
 
     def play(self, user):
-        Task.add(user, self, TASK_ACTION.PLAY)
+        Task.add(user, self, TASK_TYPE.MUSIC, TASK_ACTION.PLAY)
 
     def stop(self, user):
-        Task.add(user, self, TASK_ACTION.STOP)
+        Task.add(user, self, TASK_TYPE.MUSIC, TASK_ACTION.STOP)
 
     @classmethod
     def get(cls, id):

@@ -68,9 +68,16 @@ Statistics::
 Task::
 
     {
-        "object": "song",
-        "action": "play" / "stop",
+        "id": "121231",
+        "user_id": "1223423",
         "song_id": "1",
+        "type": "music",
+        "action": "play" / "stop",
+        "done": true / false,
+        "create_time": "2014-05-04 08:44:15",
+        "update_time": "2014-05-04 08:44:15",
+        "user": <User Object>,
+        "song": <Song Object>,
     }
 
 
